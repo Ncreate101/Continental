@@ -1,3 +1,6 @@
+var __units = {}
+var __teams = {}
+
 class Place {
     constructor(x, y) {
         this.pos = {x: x, y: y};
@@ -8,13 +11,21 @@ class City {
     constructor(position, name) {
         this.soldiers = [];
         this.name = name;
-        this.pos = pos;
+        this.pos = position;
     }
 }
 
 class Instructor {
-    constructor(team, warriors, workers) {
+    constructor(team) {
+        this.team = team 
+    }
+}
 
+class Character {
+    constructor(team, job, position) {
+        this.__position = position;
+        this.job = job;
+        this.team = team;
     }
 }
 
@@ -54,4 +65,12 @@ class Country {
             o.push(`${city.name} - Population ${city.soldiers.length}`)
         });
     }
+}
+
+function nameGenerator() {
+    return "Bobert"
+}
+
+function makeUnit() {
+    
 }
