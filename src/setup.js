@@ -13,7 +13,6 @@ function windowResized() {
 }
 
 function draw() {
-    console.log(worldMap)
     background(255);
 
     gameDraw();
@@ -37,7 +36,10 @@ function mouseClicked() {
     }
     if(fullscreen()) {
         if (mouseButton === LEFT) {
-            map[`${__getMouseOverTilePos().x} ${__getMouseOverTilePos.y}`] = placing;
+            worldMap[`${__getMouseOverTilePos().x} ${__getMouseOverTilePos().y}`] = placing;
+            console.log(`${__getMouseOverTilePos().x} ${__getMouseOverTilePos().y}`)
+            console.log(__getMouseOverTilePos());
+            console.log(worldMap)
         }
     }
 }

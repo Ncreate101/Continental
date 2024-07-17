@@ -8,8 +8,8 @@ function gameDraw() {
     
     
     // Draw All In Map
-    Object.keys(map).forEach(tl => {
-        __drawTile(map[tl], +tl.split(" ")[0], +tl.split(" ")[1])
+    Object.keys(worldMap).forEach(tl => {
+        __drawTile(worldMap[tl], +(tl.split(" ")[0]), +(tl.split(" ")[1]))
     });
 
     push();
@@ -25,7 +25,7 @@ function gameDraw() {
 function __drawTile(name, x, y) {
     // TODO: implement textured tiles;
     /* PSEUDO CODE
-    map name to atlas pos
+    worldMap name to atlas pos
     create tile
     scale tile
     position tile
@@ -40,11 +40,17 @@ function __drawTile(name, x, y) {
 }
 
 function __getMouseOverTile() {
-    return {x:(viewMove.x % (tileSize * viewSize))+Math.round((mouseX - ((viewMove.x % (tileSize * viewSize))-(tileSize * viewSize) / 2))/(tileSize * viewSize))*(tileSize * viewSize),y:(viewMove.y % (tileSize * viewSize))+Math.round((mouseY - ((viewMove.y % (tileSize * viewSize))-(tileSize * viewSize) / 2))/(tileSize * viewSize))*(tileSize * viewSize)};
+    let out = {x:0,y:0}
+    out.x = Math.round(((mouseX - cameraMove.x) - (0.5 * tileSize * viewSize)) / (tileSize * viewSize)) * (tileSize * viewSize);
+    out.y = Math.round(((mouseY - cameraMove.y) - (0.5 * tileSize * viewSize)) / (tileSize * viewSize)) * (tileSize * viewSize);
+    return out;
 }
 
 function __getMouseOverTilePos() {
-    return {x:__getMouseOverTile.x / (tileSize * viewSize), x:__getMouseOverTile.x / (tileSize * viewSize)}
+    let out = {x:0, y:0}
+    out.x = Math.round(((mouseX - cameraMove.x) - (0.5 * tileSize * viewSize)) / (tileSize * viewSize));
+    out.y = Math.round(((mouseY - cameraMove.y) - (0.5 * tileSize * viewSize)) / (tileSize * viewSize));
+    return out;
 }
 
 function stringColor(s) {
@@ -63,5 +69,5 @@ function stringColor(s) {
 }
 
 function makeTile(tl, x, y) {
-    map[`${x} v${y}`] = tl;
+    worldMap[`${x} v${y}`] = tl;
 }
