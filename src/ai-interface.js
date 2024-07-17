@@ -38,6 +38,12 @@ class Instructor {
     constructor(team) {
         this.team = team 
     }
+    
+    tellUnitToNavToGoal(unitName, goalPos) {
+        if (__units[unitName].team === this.team) {
+            __units[unitName].tasks.unshift(goalPos);
+        }
+    }
 }
 
 class Character {
@@ -45,6 +51,32 @@ class Character {
         this.__position = position;
         this.job = job;
         this.team = team;
+        this.tasks = [];
+    }
+
+    tick() {
+        if (this.__position === this.tasks[0]) {
+            this.tasks.shift();
+        }
+        if (this.__position !== this.tasks[0]) {
+            if (this.__position.x < this.tasks[0].x) {
+                this.__position.x++;
+            }
+            if (this.__position.x > this.tasks[0].x) {
+                this.__position.x--;
+            }
+            if (this.__position.y < this.tasks[0].x) {
+                this.__position.y++;
+            }
+            if (this.__position.y > this.tasks[0].x) {
+                this.__position.y--;
+            }
+        }
+    }
+
+    draw() {
+        push();
+        pop();
     }
 }
 
@@ -90,6 +122,6 @@ function nameGenerator() {
     return "Bobert"
 }
 
-function makeUnit() {
-
+function makeUnit(team) {
+    __units[nameGenerator()] = Character(team, "soldier", {x:0, y:0});
 }
