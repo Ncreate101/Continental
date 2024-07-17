@@ -7,6 +7,25 @@ class Place {
     }
 }
 
+class Area {
+    constructor(x, y, w, h) {
+        this.bounds = Set()
+        for (let xn = 0; xn < w; xn++) {
+            for (let yn = 0; yn < h; yn++) {
+                this.bounds.add(`${x + xn} ${y + yn}`)
+            }
+        }
+    }
+
+    has(x, y) {
+        return this.bounds.has(`${x} ${y}`);
+    }
+
+    union(_area) {
+        this.bounds = this.bounds.union(_area)
+    }
+}
+
 class City {
     constructor(position, name) {
         this.soldiers = [];
@@ -72,5 +91,5 @@ function nameGenerator() {
 }
 
 function makeUnit() {
-    
+
 }
