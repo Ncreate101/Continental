@@ -1,5 +1,6 @@
 let cameraMove = {x:0, y:0}
 let draggingCam = false
+let downloading
 
 function setup() {
     createCanvas(windowWidth, windowHeight);
@@ -35,7 +36,7 @@ function mouseClicked() {
         fullscreen(true);
     }
     if(fullscreen()) {
-        if (mouseButton === LEFT) {
+        if (mouseButton === LEFT && !downloading) {
             worldMap[`${__getMouseOverTilePos().x} ${__getMouseOverTilePos().y}`] = placing;
             console.log(`${__getMouseOverTilePos().x} ${__getMouseOverTilePos().y}`)
             console.log(__getMouseOverTilePos());
@@ -74,5 +75,26 @@ function keyPressed() {
         if (keyCode == ENTER) {
            placing = prompt("Place") 
         }
+        if (key == "s") {
+            downloading = true
+            download("map.json", JSON.stringify(worldMap));
+            downloading = false
+        }
+        if (key == "c") {
+            worldMap = {};
+        }
     }
+}
+
+function download(filename, text) {
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    element.setAttribute('download', filename);
+  
+    element.style.display = 'none';
+    document.body.appendChild(element);
+  
+    element.click();
+
+    document.body.removeChild(element);
 }
