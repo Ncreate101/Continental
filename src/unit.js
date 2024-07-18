@@ -33,6 +33,17 @@ class Unit {
                 }
             }
 
+            tracerPos = validNextPositions[0];
+            tracerEnergy--;
+            switch (key) {
+                case value:
+                    
+                    break;
+            
+                default:
+                    break;
+            }
+
         }
         
     }
